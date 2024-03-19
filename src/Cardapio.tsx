@@ -1,17 +1,55 @@
 import React from "react";
-import {View, Text, StyleSheet, FlatList, TouchableOpacity, StatusBar,Image, ImageBase} from "react-native";
+import {View, Text, StyleSheet, FlatList, TouchableOpacity, StatusBar,Image} from "react-native";
 
 interface Item {
-    id: string;
-    nome: string;
-    preco: string;
-    ingredientes: string;
-    image: Image;
+    id: string,
+    nome: string,
+    preco: string,
+    ingredientes: string,
+    imagem: Image,
+
+
 }
 
 const dados: Item[] = [
-    {id:"1" , nome: "João", preco:"16" , ingredientes: "joao@teste.com,", image: require('../assets/images/burg1.png')},
-    
+    {id:"1" , 
+    nome:"x-Burguer", 
+    preco:"29,90R$" , 
+    ingredientes: "Pão, queijo, hamburguer artesanal de 100g, maionese de bacon", 
+    imagem:""
+},
+
+{id:"2" , 
+    nome:"x-Salada", 
+    preco:"35,90R$" , 
+    ingredientes: "Pão, queijo, hamburguer artesanal de 100g, maionese de bacon", 
+    imagem:""
+},
+
+
+{id:"3" , 
+    nome:"x-Bacon", 
+    preco:"35,90R$" , 
+    ingredientes:  "Pão, queijo, hamburguer artesanal de 100g, maionese de bacon", 
+    imagem:""
+},
+
+
+{id:"4" , 
+    nome:"x-Frango", 
+    preco:"" , 
+    ingredientes:  "Pão, queijo, hamburguer artesanal de 100g, maionese de bacon", 
+    imagem: ""
+},
+
+
+{id:"5" , 
+    nome:"x-POGGERS", 
+    preco:"" , 
+    ingredientes: "Pão, queijo, hamburguer artesanal de 100g, maionese de bacon", 
+    imagem: require('./assets/images/burg1.png'),
+},
+
 ];
 
 
@@ -20,13 +58,15 @@ const renderItem = ({item}: {item: Item}) => (
         <Text>{item.nome}</Text>
         <Text>{item.preco}</Text>
         <Text>{item.ingredientes}</Text>
-    
+        <Image source={item.imagem} />
         
-            </TouchableOpacity>
+        
+   
+    </TouchableOpacity>
 )
 
 
-function Cardapio(): React.JSX.Element {
+function FlatListEXample(): React.JSX.Element {
     return (
         <View style={styles.container}>
             <StatusBar backgroundColor="orange" barStyle='light-content'/>
@@ -50,18 +90,19 @@ function Cardapio(): React.JSX.Element {
 
                 <TouchableOpacity>
                     <Image 
-                    source={require('./assets/images/pedidos.png')}
+                    source={require('./assets/images/orders.png')}
                     style={ styles.footerIcon}
                     />
                 </TouchableOpacity>
 
                 <TouchableOpacity>
                     <Image 
-                    source={require('./assets/images/perfil.png')}
+                    source={require('./assets/images/profile.png')}
                     style={ styles.footerIcon}
                     />
                 </TouchableOpacity>
 
+                
                 <TouchableOpacity>
                     <Image 
                     source={require('./assets/images/menu.png')}
@@ -85,7 +126,7 @@ const styles = StyleSheet.create({
         marginHorizontal: 16
     },
     header: {
-        backgroundColor: 'green',
+        backgroundColor: 'orange',
         alignItems: 'center',
         paddingVertical: 10
     },
@@ -96,7 +137,7 @@ const styles = StyleSheet.create({
     },
     footer: {
         borderTopWidth: 0.2,
-        backgroundColor: 'white',
+        backgroundColor: 'orange',
         flexDirection: 'row',
         justifyContent: 'space-around',
         alignItems: 'center',
@@ -104,11 +145,11 @@ const styles = StyleSheet.create({
 
     },
     footerIcon: {
-        width: 30,
-        height: 30 
+        width: 35,
+        height: 35,
         
     },
     
 });
 
-export default Cardapio; 
+export default FlatListEXample;
