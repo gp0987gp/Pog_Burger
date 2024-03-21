@@ -1,5 +1,5 @@
 import React from "react";
-import {View, Text, StyleSheet, FlatList, TouchableOpacity, StatusBar,Image, ImageBackground} from "react-native";
+import {View, Text, StyleSheet, FlatList, TouchableOpacity, StatusBar,Image, ImageBackground, Linking} from "react-native";
 
 interface Item {
     id: string,
@@ -10,6 +10,12 @@ interface Item {
    
 
 }
+
+function linkExternal(){
+    Linking.openURL('https://github.com/gp0987gp/Pog_Burger');
+  }
+
+
 
 const dados: Item[] = [
     {id:"1" , 
@@ -98,21 +104,21 @@ ingredientes: "Pão, queijo, hamburguer artesanal de 100g, maionese de bacon",
 },
 
 {id:"13" , 
-nome:"x-Frango Salada", 
+nome:"Água", 
 imagem: require('./assets/imagesburg/pog-burger.png'),
 preco:"35,90R$" , 
 ingredientes: "Pão, queijo, hamburguer artesanal de 100g, maionese de bacon", 
 },
 
 {id:"14" , 
-nome:"x-Frango Salada", 
+nome:"Guaraná", 
 imagem: require('./assets/imagesburg/pog-burger.png'),
 preco:"35,90R$" , 
 ingredientes: "Pão, queijo, hamburguer artesanal de 100g, maionese de bacon", 
 },
 
 {id:"15" , 
-nome:"x-Frango Salada", 
+nome:"Coca Cola", 
 imagem: require('./assets/imagesburg/pog-burger.png'),
 preco:"35,90R$" , 
 ingredientes: "Pão, queijo, hamburguer artesanal de 100g, maionese de bacon", 
@@ -143,7 +149,7 @@ function FlatListEXample(): React.JSX.Element {
             <ImageBackground source={require('../src/assets/images/bcimg.png')} resizeMode="cover" style={styles.backimg}>
             <StatusBar backgroundColor="black" barStyle='light-content'/>
             <View style={styles.header}>
-            <Text style={styles.headerText}>ᴘᴏɢ ʙᴜʀɢᴇʀ</Text>
+            <Image source={require('../src/assets/images/pog.png')} style={styles.logoimg}/>
             </View>
             <FlatList
             showsVerticalScrollIndicator={false} 
@@ -161,7 +167,7 @@ function FlatListEXample(): React.JSX.Element {
                 </TouchableOpacity>
 
                 <TouchableOpacity>
-                    <Image 
+                    <Image  
                     source={require('./assets/images/pedidos.png')}
                     style={ styles.footerIcon}
                     />
@@ -171,16 +177,30 @@ function FlatListEXample(): React.JSX.Element {
                     <Image 
                     source={require('./assets/images/perfil.png')}
                     style={ styles.footerIcon}
+                    
+                    />
+                </TouchableOpacity>
+
+                
+                <TouchableOpacity style={styles.zapIcon} onPress={linkExternal}>
+                    <Image
+                    source={require('./assets/images/whatsapp.png')}
+                    style={ styles.footerIcon}
                     />
                 </TouchableOpacity>
 
                 
                 <TouchableOpacity>
-                    <Image 
+                    <Image
                     source={require('./assets/images/menu.png')}
                     style={ styles.footerIcon}
                     />
                 </TouchableOpacity>
+
+
+
+            
+  
             </View>
         </View>
     )       
@@ -205,12 +225,12 @@ const styles = StyleSheet.create({
     },
     header: {
         alignItems: 'center',
+
+
+
     },
     headerText: {
-        fontSize: 59,
-        fontWeight: 'bold',
-        color: 'orange',
-        backgroundColor:'black',
+    
         
     },
     footer: {
@@ -231,7 +251,7 @@ const styles = StyleSheet.create({
     },
 
     burgIcon: {
-        width: 200,
+        width: 320,
         height: 200,
         borderWidth: 1,
         borderColor:'orange',
@@ -258,13 +278,21 @@ const styles = StyleSheet.create({
     },
 
     logoimg: {
-        width:390,
-        height:42,
-        alignItems:'center',
-        borderWidth: 1,
-        borderColor: '#FF00FF',
-        borderRadius:300,
-    }
+        width:400,
+        height:40,
+        justifyContent: 'center',
+       
+    },
+
+    zapIcon: {
+        position: 'absolute',
+        width: 40,
+        height: 140,
+        alignItems: 'center',
+        justifyContent: 'center',
+        right: 30,
+        bottom: 30,
+      },
 
 
     
