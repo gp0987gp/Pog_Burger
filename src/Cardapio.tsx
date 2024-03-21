@@ -186,7 +186,7 @@ function FlatListEXample(): React.JSX.Element {
                 <TouchableOpacity style={styles.zapIcon} onPress={linkExternal}>
                     <Image
                     source={require('./assets/images/whatsapp.png')}
-                    style={ styles.footerIcon}
+                    style={ styles.Iconzap}
                     />
                 </TouchableOpacity>
 
@@ -213,6 +213,13 @@ const styles = StyleSheet.create({
         
        
     },
+    Iconzap: {
+        width: 60,
+        height: 60,
+        
+    },
+
+
 
     item: {
         backgroundColor: 'black',
