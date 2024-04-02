@@ -144,7 +144,7 @@ const renderItem = ({item}: {item: Item}) => (
 )
 
 
-function FlatListEXample(): React.JSX.Element {
+function Cardapio(): React.JSX.Element {
     return (
         <View style={styles.container}>
             <ImageBackground source={require('../src/assets/images/bcimg.png')} resizeMode="cover" style={styles.backimg}>
@@ -306,4 +306,4 @@ const styles = StyleSheet.create({
     
 });
 
-export default FlatListEXample;
+export default Cardapio;
