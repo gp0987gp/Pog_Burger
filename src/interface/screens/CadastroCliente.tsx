@@ -4,27 +4,36 @@ import { Image, Text, View } from "react-native";
 import { launchCamera, launchImageLibrary } from "react-native-image-picker";
 import axios from 'axios';
 
-const CadastroProduto: React.FC = () => {
+const CadastroCliente: React.FC = () => {
 
-    const [produtos, setProdutos] = useState<Produto[]>([]);
+    const [cliente, setCliente] = useState<Cliente[]>([]);
     const [nome, setNome] = useState<string>('');
-    const [preco, setPreco] = useState<string>('');
-    const [ingredientes, setIngredientes] = useState<string>('');
+    const [endereco, setEndereco] = useState<string>('');
+    const [telefone, setTelefone] = useState<string>('');
+    const [cpf, setCpf] = useState<string>('');
+    const [email, setEmail] = useState<string>('');
+    const [senha, setSenha] = useState<string>('');
+
+
+
     const [imagem, setImagem] = useState<any>('');
 
-    const cadastrarProduto = async () => {
+    const cadastrarCliente = async () => {
         try{
         const formData = new FormData();
         formData.append('nome', nome);
-        formData.append('preco', preco);
-        formData.append('ingredientes', ingredientes);
+        formData.append('endereco', endereco);
+        formData.append('telefone', telefone);
+        formData.append('email', email);
+        formData.append('cpf', cpf);
+        formData.append('senha', senha);
         formData.append('imagem', {
             uri:imagem,
             type: 'image/jpeg',
             name: new Date() + '.jpg'
         });
 
-        const response = await axios.post('http://10.137.11.205:8000/api/produtos', formData, {
+        const response = await axios.post('http://10.137.11.209:8000/api/produtos', formData, {
             headers: {
                 'Content-Type': 'multipart/form-data'
             }
@@ -81,47 +90,60 @@ const CadastroProduto: React.FC = () => {
 
     return (
         <View style={styles.container}>
-            <StatusBar backgroundColor={'red'} barStyle="light-content" />
+            <StatusBar hidden/>
             <View style={styles.header}>
-                <Text style={styles.headerText}>Top Food</Text>
+                
             </View>
             <View style={styles.form}>
                 <TextInput style={styles.input}
-                    placeholder="Nome do Produto"
+                    placeholder="Nome do Cliente"
                     value={nome}
                     onChangeText={setNome} />
 
-
-                {/*<TextInput style={styles.input}
-                    placeholder="Preço"
-                    value={preco}
-    onChangeText={setPreco} />*/}
+                <TextInput style={styles.input}
+                    placeholder="Endereço"
+                    value={endereco}
+                    onChangeText={setEndereco}/>
+                
+                <TextInput style={styles.input}
+                    placeholder="telefone"
+                    value={telefone}
+                    onChangeText={setTelefone}/>
 
                 <TextInput style={styles.input}
-                    placeholder="Preço"
-                    value={preco}
-                    onChangeText={setPreco} />
+                    placeholder="email"
+                    value={email}
+                    onChangeText={setEmail}/>
 
                 <TextInput style={styles.input}
-                    placeholder="Ingredientes"
-                    value={ingredientes}
-                    onChangeText={setIngredientes}
-                    multiline />
+                    placeholder="cpf"
+                    value={cpf}
+                    onChangeText={setCpf}/>
+
+                <TextInput secureTextEntry={true} style={styles.input}
+                    placeholder="Senha"
+                    value={senha}
+                    onChangeText={setSenha}/>
+
+                
+                
+
+               
 
                     <View style={styles.alinhamentoImagensSelecionada}>
                         {imagem ? <Image source={{uri:imagem}} style={styles.imagemSelecionado} /> : null}
                     </View>
 
                     <TouchableOpacity style={styles.imageButton} onPress={selecionarImagem}>
-                        <Text style={styles.imageButtonText}>Selecionar Imagem</Text>
+                        <Text style={styles.imageButtonText}>Selecionar Foto</Text>
                     </TouchableOpacity>
 
                     <TouchableOpacity style={styles.imageButton} onPress={abrirCamera}>
                         <Text style={styles.imageButtonText}>Tirar Foto</Text>
                     </TouchableOpacity>
 
-                    <TouchableOpacity style={styles.imageButton} onPress={cadastrarProduto}>
-                        <Text style={styles.imageButtonText}>Cadastrar Produto</Text>
+                    <TouchableOpacity style={styles.imageButton} onPress={cadastrarCliente}>
+                        <Text style={styles.imageButtonText}>Cadastrar Cliente</Text>
                     </TouchableOpacity>
 
             </View>
@@ -135,13 +157,14 @@ const styles = StyleSheet.create({
     container: {
         flex: 1
     }, header: {
-        backgroundColor: 'red',
+        backgroundColor: 'purple',
         paddingVertical: 10,
         alignItems: 'center'
     }, headerText: {
         fontSize: 20,
         fontWeight: 'bold',
-        color: 'white'
+        color: 'white',
+        justifyContent: 'center',
     },
     form: {
         padding: 10,
@@ -157,12 +180,12 @@ const styles = StyleSheet.create({
         borderRadius: 10
     },
     imageButton: {
-        backgroundColor: 'red',
+        backgroundColor: 'purple',
         padding: 10,
         borderRadius: 5,
         alignItems: 'center',
-        marginTop:10
-
+        marginTop:10,
+        justifyContent: 'center',
     },
     imageButtonText: {
         color: 'white',
@@ -179,7 +202,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     button: {
-        backgroundColor: 'red',
+        backgroundColor: 'purple',
         padding: 10,
         borderRadius: 5,
         alignItems: 'center'
@@ -196,4 +219,4 @@ const styles = StyleSheet.create({
 
 });
 
-export default CadastroProduto;
+export default CadastroCliente;
