@@ -4,4 +4,4 @@ interface Produto {
     ingredientes: string;
     preco: number;
     imagem: any;
-}
+};

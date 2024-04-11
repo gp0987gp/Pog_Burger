@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { StatusBar, StyleSheet, TextInput, TouchableOpacity } from "react-native";
+import { StatusBar, StyleSheet, TextInput, TouchableOpacity,ImageBackground } from "react-native";
 import { Image, Text, View } from "react-native";
 import { launchCamera, launchImageLibrary } from "react-native-image-picker";
 import axios from 'axios';
@@ -13,9 +13,6 @@ const CadastroCliente: React.FC = () => {
     const [cpf, setCpf] = useState<string>('');
     const [email, setEmail] = useState<string>('');
     const [senha, setSenha] = useState<string>('');
-
-
-
     const [imagem, setImagem] = useState<any>('');
 
     const cadastrarCliente = async () => {
@@ -33,7 +30,7 @@ const CadastroCliente: React.FC = () => {
             name: new Date() + '.jpg'
         });
 
-        const response = await axios.post('http://10.137.11.209:8000/api/produtos', formData, {
+        const response = await axios.post('http://10.137.11.205:8000/api/produtos', formData, {
             headers: {
                 'Content-Type': 'multipart/form-data'
             }
@@ -69,7 +66,7 @@ const CadastroCliente: React.FC = () => {
 
     const selecionarImagem = () => {
         const options = {
-            mediaType: 'phto',
+            mediaType: 'photo',
             includeBase64: false, 
             maxHeight: 2000,
             maxWidht: 2000
@@ -90,10 +87,12 @@ const CadastroCliente: React.FC = () => {
 
     return (
         <View style={styles.container}>
-            <StatusBar hidden/>
-            <View style={styles.header}>
-                
-            </View>
+        <ImageBackground source={require('../media/bcimg.png')} resizeMode="cover" style={styles.backimg}/>
+        <StatusBar backgroundColor="black" barStyle='light-content'/>
+        <View style={styles.header}>
+        <Image source={require('../media/pog.png')} style={styles.logoimg}/>
+        </View>
+        
             <View style={styles.form}>
                 <TextInput style={styles.input}
                     placeholder="Nome do Cliente"
@@ -149,7 +148,7 @@ const CadastroCliente: React.FC = () => {
             </View>
 
         </View>
-    )
+    );
 }
 
 const styles = StyleSheet.create({
@@ -182,10 +181,21 @@ const styles = StyleSheet.create({
     imageButton: {
         backgroundColor: 'purple',
         padding: 10,
-        borderRadius: 5,
+        borderRadius: 40,
         alignItems: 'center',
-        marginTop:10,
+        marginTop:40,
         justifyContent: 'center',
+    },
+
+    backimg: {
+        flex: 1,
+        justifyContent: 'center',
+    },
+    logoimg: {
+        width:400,
+        height:40,
+        justifyContent: 'center',
+       
     },
     imageButtonText: {
         color: 'white',
