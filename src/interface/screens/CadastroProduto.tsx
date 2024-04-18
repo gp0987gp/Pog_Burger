@@ -60,7 +60,7 @@ const CadastroProduto: React.FC = () => {
 
     const selecionarImagem = () => {
         const options = {
-            mediaType: 'photo',
+            mediaType: 'phto',
             includeBase64: false, 
             maxHeight: 2000,
             maxWidht: 2000
@@ -81,10 +81,9 @@ const CadastroProduto: React.FC = () => {
 
     return (
         <View style={styles.container}>
-            <ImageBackground source={require('../src/assets/images/bcimg.png')} resizeMode="cover" style={styles.backimg}>
-            <StatusBar backgroundColor="black" barStyle='light-content'/>
+            <StatusBar backgroundColor={'red'} barStyle="light-content" />
             <View style={styles.header}>
-            <Image source={require('../src/assets/images/pog.png')} style={styles.logoimg}/>
+                <Text style={styles.headerText}>Top Food</Text>
             </View>
             <View style={styles.form}>
                 <TextInput style={styles.input}
@@ -139,14 +138,11 @@ const styles = StyleSheet.create({
         backgroundColor: 'red',
         paddingVertical: 10,
         alignItems: 'center'
-
     }, headerText: {
         fontSize: 20,
         fontWeight: 'bold',
         color: 'white'
-    }, 
-
-
+    },
     form: {
         padding: 10,
         backgroundColor: '#f0f0f0',

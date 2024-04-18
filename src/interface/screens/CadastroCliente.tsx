@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { StatusBar, StyleSheet, TextInput, TouchableOpacity,ImageBackground } from "react-native";
+import { StatusBar, StyleSheet, TextInput, TouchableOpacity } from "react-native";
 import { Image, Text, View } from "react-native";
 import { launchCamera, launchImageLibrary } from "react-native-image-picker";
 import axios from 'axios';
@@ -12,7 +12,10 @@ const CadastroCliente: React.FC = () => {
     const [telefone, setTelefone] = useState<string>('');
     const [cpf, setCpf] = useState<string>('');
     const [email, setEmail] = useState<string>('');
-    const [senha, setSenha] = useState<string>('');
+    const [password, setPassword] = useState<string>('');
+
+
+
     const [imagem, setImagem] = useState<any>('');
 
     const cadastrarCliente = async () => {
@@ -23,18 +26,19 @@ const CadastroCliente: React.FC = () => {
         formData.append('telefone', telefone);
         formData.append('email', email);
         formData.append('cpf', cpf);
-        formData.append('senha', senha);
+        formData.append('password', password);
         formData.append('imagem', {
             uri:imagem,
             type: 'image/jpeg',
             name: new Date() + '.jpg'
         });
-
-        const response = await axios.post('http://10.137.11.205:8000/api/produtos', formData, {
+        console.log(formData);
+        const response = await axios.post('http://10.137.11.205:8000/api/clientes', formData, {
             headers: {
                 'Content-Type': 'multipart/form-data'
             }
         });
+        console.log(response);
 
     }catch(error) {
         console.log(error);
@@ -66,7 +70,7 @@ const CadastroCliente: React.FC = () => {
 
     const selecionarImagem = () => {
         const options = {
-            mediaType: 'photo',
+            mediaType: 'phto',
             includeBase64: false, 
             maxHeight: 2000,
             maxWidht: 2000
@@ -78,7 +82,7 @@ const CadastroCliente: React.FC = () => {
             } else if(response.error) {
                 console.log('erro ao abrir a galeria');
             } else {
-                let imageUri = response.uir || response.assets?.[0]?.uri;
+                let imageUri = response.uri || response.assets?.[0]?.uri;
                 setImagem(imageUri);
             }
         });
@@ -87,12 +91,10 @@ const CadastroCliente: React.FC = () => {
 
     return (
         <View style={styles.container}>
-        <ImageBackground source={require('../media/bcimg.png')} resizeMode="cover" style={styles.backimg}/>
-        <StatusBar backgroundColor="black" barStyle='light-content'/>
-        <View style={styles.header}>
-        <Image source={require('../media/pog.png')} style={styles.logoimg}/>
-        </View>
-        
+            <StatusBar hidden/>
+            <View style={styles.header}>
+                
+            </View>
             <View style={styles.form}>
                 <TextInput style={styles.input}
                     placeholder="Nome do Cliente"
@@ -121,8 +123,8 @@ const CadastroCliente: React.FC = () => {
 
                 <TextInput secureTextEntry={true} style={styles.input}
                     placeholder="Senha"
-                    value={senha}
-                    onChangeText={setSenha}/>
+                    value={password}
+                    onChangeText={setPassword}/>
 
                 
                 
@@ -148,7 +150,7 @@ const CadastroCliente: React.FC = () => {
             </View>
 
         </View>
-    );
+    )
 }
 
 const styles = StyleSheet.create({
@@ -181,21 +183,10 @@ const styles = StyleSheet.create({
     imageButton: {
         backgroundColor: 'purple',
         padding: 10,
-        borderRadius: 40,
+        borderRadius: 5,
         alignItems: 'center',
-        marginTop:40,
+        marginTop:10,
         justifyContent: 'center',
-    },
-
-    backimg: {
-        flex: 1,
-        justifyContent: 'center',
-    },
-    logoimg: {
-        width:400,
-        height:40,
-        justifyContent: 'center',
-       
     },
     imageButtonText: {
         color: 'white',
