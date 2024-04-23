@@ -1,5 +1,8 @@
-import React from "react";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
 import {View, Text, StyleSheet, FlatList, TouchableOpacity, StatusBar,Image, ImageBackground, Linking} from "react-native";
+import { NavigationContainer, useNavigation } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
 
 interface Item {
     id: string,
@@ -15,122 +18,6 @@ function linkExternal(){
     Linking.openURL('https://github.com/gp0987gp/Pog_Burger');
   }
 
-
-
-
-const dados: Item[] = [
-    {id:"1" , 
-    nome:"Cheese-Burguer", 
-    imagem: require('./assets/imagesburg/cheeseburger.png'),
-    preco:"29,90R$" , 
-    ingredientes: "Pão, queijo, hamburguer artesanal de 100g, maionese de bacon", 
-},
-
-{id:"2" , 
-    nome:"Cheese-Burger-Duplo", 
-    preco:"35,90R$" , 
-    ingredientes: "Pão, queijo, hamburguer artesanal de 100g, maionese de bacon", 
-    imagem: require('./assets/imagesburg/Cheeseburger_duplo.png'),
-},
-
-{id:"3" , 
-    nome:"Pog-Salada-Duplo", 
-    preco:"35,90R$" , 
-    ingredientes:  "Pão, queijo, hamburguer artesanal de 100g, maionese de bacon", 
-    imagem: require('./assets/imagesburg/pog_salada_dp.png'),
-},
-
-{id:"4" , 
-    nome:"Pog-Salada-Mini", 
-    preco:"" , 
-    ingredientes:  "Pão, queijo, hamburguer artesanal de 100g, maionese de bacon", 
-    imagem: require('./assets/imagesburg/pog-salada-mini.png'),
-},
-
-
-{id:"5" , 
-    nome:"Pog-Salada", 
-    preco:"" , 
-    ingredientes: "Pão, queijo, hamburguer artesanal de 100g, maionese de bacon", 
-    imagem: require('./assets/imagesburg/pog-salada.png'),
-},
-
-{id:"6" , 
-nome:"Pog-Burger", 
-preco:"35,90R$" , 
-ingredientes: "Pão, queijo, hamburguer artesanal de 100g, maionese de bacon", 
-imagem: require('./assets/imagesburg/pog-burger.png'),
-},
-
-{id:"7" , 
-nome:"x-Frango Salada", 
-imagem: require('./assets/imagesburg/pog-burger.png'),
-preco:"35,90R$" , 
-ingredientes: "Pão, queijo, hamburguer artesanal de 100g, maionese de bacon", 
-},
-
-{id:"8" , 
-nome:"x-Frango Salada", 
-imagem: require('./assets/imagesburg/pog-burger.png'),
-preco:"35,90R$" , 
-ingredientes: "Pão, queijo, hamburguer artesanal de 100g, maionese de bacon", 
-},
-
-{id:"9" , 
-nome:"x-Frango Salada", 
-imagem: require('./assets/imagesburg/pog-burger.png'),
-preco:"35,90R$" , 
-ingredientes: "Pão, queijo, hamburguer artesanal de 100g, maionese de bacon", 
-},
-
-{id:"10" , 
-nome:"x-Frango Salada", 
-imagem: require('./assets/imagesburg/pog-burger.png'),
-preco:"35,90R$" , 
-ingredientes: "Pão, queijo, hamburguer artesanal de 100g, maionese de bacon", 
-},
-
-{id:"11" , 
-nome:"x-Frango Salada", 
-imagem: require('./assets/imagesburg/pog-burger.png'),
-preco:"35,90R$" , 
-ingredientes: "Pão, queijo, hamburguer artesanal de 100g, maionese de bacon", 
-},
-
-{id:"12" , 
-nome:"x-Frango Salada", 
-imagem: require('./assets/imagesburg/pog-burger.png'),
-preco:"35,90R$" , 
-ingredientes: "Pão, queijo, hamburguer artesanal de 100g, maionese de bacon", 
-},
-
-{id:"13" , 
-nome:"Água", 
-imagem: require('./assets/imagesburg/pog-burger.png'),
-preco:"35,90R$" , 
-ingredientes: "Pão, queijo, hamburguer artesanal de 100g, maionese de bacon", 
-},
-
-{id:"14" , 
-nome:"Guaraná", 
-imagem: require('./assets/imagesburg/pog-burger.png'),
-preco:"35,90R$" , 
-ingredientes: "Pão, queijo, hamburguer artesanal de 100g, maionese de bacon", 
-},
-
-{id:"15" , 
-nome:"Coca Cola", 
-imagem: require('./assets/imagesburg/pog-burger.png'),
-preco:"35,90R$" , 
-ingredientes: "Pão, queijo, hamburguer artesanal de 100g, maionese de bacon", 
-},
-
-
-
-
-];
-
-
 const renderItem = ({item}: {item: Item}) => (
     <TouchableOpacity style={styles.item}>
         <Text style={styles.nomeText}>{item.nome}</Text>
@@ -145,6 +32,27 @@ const renderItem = ({item}: {item: Item}) => (
 
 
 function Cardapio(): React.JSX.Element {
+    const [produto, setProduto] = useState<Produto[]>([]);
+    const [erro, setErro] = useState<string>("");
+
+    useEffect(() => {
+        async function fetchData() {
+            try {
+                const response = await axios.get('http://10.137.11.205:8000/api/produtos/index');
+                setProduto(response.data);
+                console.log(response.data);
+                
+            } catch (error) {
+                setErro("Ocorreu um erro");
+                console.log(error)
+            }
+        }
+        fetchData();
+    }, []);
+
+
+const navigation = useNavigation();
+
     return (
         <View style={styles.container}>
             <ImageBackground source={require('../src/assets/images/bcimg.png')} resizeMode="cover" style={styles.backimg}>
@@ -163,15 +71,15 @@ function Cardapio(): React.JSX.Element {
                 <TouchableOpacity>
                     <Image 
                     source={require('./assets/images/home.png')}
-                    style={ styles.footerIcon}
+                    style={ styles.footerHome}
                     />
                 </TouchableOpacity>
 
-                <TouchableOpacity>
+                <TouchableOpacity onPress={()=>navigation.navigate('pedidos')}>
                     <Image  
                     source={require('./assets/images/pedidos.png')}
-                    style={ styles.footerIcon}
-                    />
+                    style={ styles.footerIcon}/>
+                    
                 </TouchableOpacity>
 
                 <TouchableOpacity>
